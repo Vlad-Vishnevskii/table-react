@@ -35,33 +35,35 @@ function SortableRow({ match, names, onEdit }) {
       className={isDragging ? 'is-dragging' : ''}
       style={{ transform: CSS.Transform.toString(transform), transition }}
     >
-      <button
-        type="button"
-        ref={setActivatorNodeRef}
-        className="icon-btn drag-handle"
-        aria-label="Перетащить матч"
-        title="Перетащить"
-        {...attributes}
-        {...listeners}
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
-          <circle cx="9" cy="6" r="1.6" /><circle cx="15" cy="6" r="1.6" />
-          <circle cx="9" cy="12" r="1.6" /><circle cx="15" cy="12" r="1.6" />
-          <circle cx="9" cy="18" r="1.6" /><circle cx="15" cy="18" r="1.6" />
-        </svg>
-      </button>
-      <button
-        type="button"
-        className="icon-btn"
-        onClick={() => onEdit(match.id)}
-        aria-label="Редактировать матч"
-        title="Редактировать"
-      >
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-          <path d="M12 20h9" />
-          <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
-        </svg>
-      </button>
+      <span className="game__actions">
+        <button
+          type="button"
+          ref={setActivatorNodeRef}
+          className="icon-btn drag-handle"
+          aria-label="Перетащить матч"
+          title="Перетащить"
+          {...attributes}
+          {...listeners}
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <circle cx="9" cy="6" r="1.6" /><circle cx="15" cy="6" r="1.6" />
+            <circle cx="9" cy="12" r="1.6" /><circle cx="15" cy="12" r="1.6" />
+            <circle cx="9" cy="18" r="1.6" /><circle cx="15" cy="18" r="1.6" />
+          </svg>
+        </button>
+        <button
+          type="button"
+          className="icon-btn"
+          onClick={() => onEdit(match.id)}
+          aria-label="Редактировать матч"
+          title="Редактировать"
+        >
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M12 20h9" />
+            <path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4Z" />
+          </svg>
+        </button>
+      </span>
     </MatchRow>
   );
 }

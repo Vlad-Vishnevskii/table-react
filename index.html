@@ -5,6 +5,16 @@
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <meta name="theme-color" content="#0d0f0e" />
     <link rel="icon" href="./logo.jpg" />
+    <script>
+      (function () {
+        var t = null;
+        try { t = localStorage.getItem('zo-theme'); } catch (e) {}
+        if (t !== 'light' && t !== 'dark') {
+          t = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+        }
+        document.documentElement.setAttribute('data-theme', t);
+      })();
+    </script>
     <title>Таблица тренировок ФК Зелёная околица</title>
   </head>
   <body>
