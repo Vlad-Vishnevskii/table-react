@@ -1,4 +1,5 @@
 import ScoreStepper from './ScoreStepper.jsx';
+import Select from './Select.jsx';
 
 // Общий блок «хозяева — счёт — гости» для формы добавления и окна правки.
 export default function MatchFields({ teams, value, onChange }) {
@@ -6,21 +7,13 @@ export default function MatchFields({ teams, value, onChange }) {
   const set = (patch) => onChange({ ...value, ...patch });
 
   const select = (current, other, key, label) => (
-    <select
-      className="select"
+    <Select
       value={current}
-      onChange={(e) => set({ [key]: e.target.value })}
-      aria-label={label}
-    >
-      <option value="" disabled>
-        Выберите команду
-      </option>
-      {teams.map((t) => (
-        <option key={t.id} value={t.id} disabled={t.id === other}>
-          {t.name}
-        </option>
-      ))}
-    </select>
+      onChange={(v) => set({ [key]: v })}
+      label={label}
+      placeholder="Выберите команду"
+      options={teams.map((t) => ({ value: t.id, label: t.name, disabled: t.id === other }))}
+    />
   );
 
   return (

@@ -25,7 +25,7 @@ export default function App() {
     document.documentElement.setAttribute('data-theme', theme);
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#eef2ef' : '#0d0f0e');
+      ?.setAttribute('content', theme === 'light' ? '#eaf0ec' : '#070a09');
     try {
       localStorage.setItem('zo-theme', theme);
     } catch {
