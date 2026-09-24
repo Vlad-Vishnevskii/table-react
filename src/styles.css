@@ -339,7 +339,18 @@ button { cursor: pointer; }
   box-shadow: 0 30px 80px var(--shadow-strong);
   animation: pop 0.18s ease-out;
 }
-.modal__box--wide { max-width: 720px; max-height: calc(100vh - 40px); overflow-y: auto; }
+.modal__box--wide {
+  max-width: 720px; max-height: calc(100vh - 40px); max-height: calc(100dvh - 40px);
+  display: flex; flex-direction: column;
+}
+/* прокручивается только список, кнопки внизу всегда видны */
+.modal__body {
+  flex: 1; min-height: 0; overflow-y: auto; overscroll-behavior: contain;
+  margin: 0 -8px; padding: 0 8px;
+}
+.modal__box--wide .modal__actions {
+  flex: none; margin-top: 0; padding-top: 16px; border-top: 1px solid var(--line);
+}
 .modal__actions { display: flex; gap: 10px; margin-top: 22px; flex-wrap: wrap; }
 @keyframes fade { from { opacity: 0; } }
 @keyframes pop { from { opacity: 0; transform: translateY(8px) scale(0.98); } }
@@ -361,6 +372,7 @@ html[data-theme='light'] .theme-toggle .icon-moon { display: block; }
   .card__title { font-size: 16px; }
   .modal { padding: 12px; }
   .modal__box { padding: 18px; }
+  .modal__box--wide { max-height: calc(100vh - 24px); max-height: calc(100dvh - 24px); }
   .game--editable { grid-template-columns: 1fr auto 1fr; }
   .game__actions { grid-column: 1 / -1; justify-content: space-between; }
   .game { font-size: 15px; gap: 8px; }

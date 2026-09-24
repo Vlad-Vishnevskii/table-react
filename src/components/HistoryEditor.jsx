@@ -90,24 +90,26 @@ export default function HistoryEditor({ matches, teams, paused, onEdit, onReorde
     <div className="modal" onMouseDown={(e) => e.target === e.currentTarget && onClose()}>
       <div className="modal__box modal__box--wide" role="dialog" aria-modal="true" aria-label="Редактирование истории">
         <h2 className="card__title">Редактирование истории</h2>
-        <p className="hint">Перетаскивайте матчи за значок справа, чтобы изменить порядок.</p>
-        {matches.length === 0 ? (
-          <p className="hint">Матчей пока нет.</p>
-        ) : (
-          <DndContext
-            sensors={sensors}
-            collisionDetection={closestCenter}
-            onDragEnd={({ active, over }) => over && onReorder(active.id, over.id)}
-          >
-            <SortableContext items={ids} strategy={verticalListSortingStrategy}>
-              <ul className="games">
-                {matches.map((m) => (
-                  <SortableRow key={m.id} match={m} names={names} onEdit={onEdit} />
-                ))}
-              </ul>
-            </SortableContext>
-          </DndContext>
-        )}
+        <p className="hint">Перетаскивайте матчи за значок с точками, чтобы изменить порядок.</p>
+        <div className="modal__body">
+          {matches.length === 0 ? (
+            <p className="hint">Матчей пока нет.</p>
+          ) : (
+            <DndContext
+              sensors={sensors}
+              collisionDetection={closestCenter}
+              onDragEnd={({ active, over }) => over && onReorder(active.id, over.id)}
+            >
+              <SortableContext items={ids} strategy={verticalListSortingStrategy}>
+                <ul className="games">
+                  {matches.map((m) => (
+                    <SortableRow key={m.id} match={m} names={names} onEdit={onEdit} />
+                  ))}
+                </ul>
+              </SortableContext>
+            </DndContext>
+          )}
+        </div>
         <div className="modal__actions">
           <span className="spacer" />
           <button type="button" className="btn btn--primary" onClick={onClose}>
