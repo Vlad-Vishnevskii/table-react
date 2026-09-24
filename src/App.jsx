@@ -12,6 +12,7 @@ import Standings from "./components/Standings.jsx";
 import History from "./components/History.jsx";
 import EditModal from "./components/EditModal.jsx";
 import HistoryEditor from "./components/HistoryEditor.jsx";
+import Share from "./components/Share.jsx";
 
 export default function App() {
   const [state, setState] = useState(loadState);
@@ -123,6 +124,7 @@ export default function App() {
             <p className="header__sub">Итоги дня</p>
           </div>
           <div className="header__actions">
+            <Share standings={standings} matches={matches} teams={teams} />
             <button
               type="button"
               className="icon-btn theme-toggle"

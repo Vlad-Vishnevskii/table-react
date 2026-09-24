@@ -363,8 +363,8 @@ html[data-theme='light'] .theme-toggle .icon-moon { display: block; }
 /* ---------- маленькие экраны (≤ 480px) ---------- */
 @media (max-width: 480px) {
   .header__inner { gap: 12px; }
-  .header__logo { width: 56px; padding: 4px; }
-  .header__title { font-size: 24px; overflow-wrap: anywhere; }
+  .header__logo { width: 48px; padding: 3px; }
+  .header__title { font-size: 22px; }
   .header__sub { font-size: 11px; }
   .header__actions { gap: 6px; }
   .container { padding: 0 12px; }
@@ -382,6 +382,8 @@ html[data-theme='light'] .theme-toggle .icon-moon { display: block; }
 
 /* ---------- очень маленькие экраны (≤ 400px) ---------- */
 @media (max-width: 400px) {
+  .header__inner { gap: 10px; }
+  .header__actions .icon-btn { width: 34px; height: 34px; }
   .table-wrap { margin: 0; padding: 0; overflow-x: visible; }
   .table { table-layout: fixed; border-spacing: 0 4px; }
   .table th { padding: 4px 1px; font-size: 11px; letter-spacing: 0; }
@@ -392,4 +394,54 @@ html[data-theme='light'] .theme-toggle .icon-moon { display: block; }
   .table td.table__name { padding-left: 6px; overflow-wrap: anywhere; line-height: 1.2; font-size: 15px; }
   .table td.table__points { font-size: 16px; }
   .place { width: 22px; height: 22px; font-size: 12px; }
+}
+
+/* ---------- картинка «Поделиться» ---------- */
+/* сцена вне экрана: снимок делается с .share-card фиксированной ширины */
+.share-stage { position: fixed; left: -10000px; top: 0; pointer-events: none; }
+.share-card {
+  width: 640px; padding: 24px; display: flex; flex-direction: column; gap: 16px;
+  color: var(--text); font-family: var(--font);
+  background:
+    radial-gradient(600px 300px at 90% -10%, var(--glow-green), transparent 60%),
+    repeating-linear-gradient(90deg, var(--stripe) 0 90px, transparent 90px 180px),
+    var(--bg);
+}
+.share-card__head { display: flex; align-items: center; gap: 16px; padding-bottom: 4px; }
+/* на снимке всегда «десктопные» размеры, независимо от экрана телефона */
+.share-card .header__logo { width: 72px; padding: 5px; }
+.share-card .header__title { font-size: 34px; }
+.share-card .header__sub { font-size: 13px; }
+.share-card .card { padding: 20px; }
+.share-card .card:focus-within { z-index: auto; }
+.share-card .card__title { font-size: 18px; }
+.share-card .table-wrap { margin: 0; padding: 0; overflow: visible; }
+.share-card .table { table-layout: auto; }
+.share-card .table th { padding: 6px 8px; font-size: 13px; letter-spacing: 0.06em; width: auto; }
+.share-card .table td { padding: 11px 8px; font-size: 17px; }
+.share-card .table td.table__name { padding-left: 8px; font-size: 17px; }
+.share-card .table td.table__points { font-size: 19px; }
+.share-card .table .table__extra { display: table-cell; }
+.share-card .table td:nth-child(7) { border-radius: 0; }
+.share-card .table td:last-child { border-radius: 0 var(--radius-sm) var(--radius-sm) 0; }
+.share-card .place { width: 28px; height: 28px; font-size: 15px; }
+.share-card .game { font-size: 18px; gap: 14px; }
+.share-card .game__score { min-width: 88px; font-size: 24px; padding: 3px 14px; }
+
+.share-preview {
+  /* превью целиком помещается в окно, без прокрутки */
+  display: block; margin: 0 auto; max-width: 100%; width: auto; height: auto;
+  max-height: calc(100vh - 240px); max-height: calc(100dvh - 240px);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--line-strong);
+}
+
+/* на телефоне главное действие — первой строкой на всю ширину */
+@media (max-width: 480px) {
+  .share-actions { display: grid; grid-template-columns: 1fr 1fr; }
+  .share-actions .spacer { display: none; }
+  .share-actions .btn { padding: 12px 10px; }
+  .share-actions .btn--primary { grid-column: 1 / -1; order: -1; }
+  .share-preview { max-height: calc(100vh - 230px); max-height: calc(100dvh - 230px); }
+  .share-actions--single { grid-template-columns: 1fr; }
 }
