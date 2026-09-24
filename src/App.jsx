@@ -1,33 +1,33 @@
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from "react";
 import {
   computeStandings,
   loadState,
   nextDefaultName,
   saveState,
   uid,
-} from './logic.js';
-import TeamsPanel from './components/TeamsPanel.jsx';
-import MatchForm from './components/MatchForm.jsx';
-import Standings from './components/Standings.jsx';
-import History from './components/History.jsx';
-import EditModal from './components/EditModal.jsx';
-import HistoryEditor from './components/HistoryEditor.jsx';
+} from "./logic.js";
+import TeamsPanel from "./components/TeamsPanel.jsx";
+import MatchForm from "./components/MatchForm.jsx";
+import Standings from "./components/Standings.jsx";
+import History from "./components/History.jsx";
+import EditModal from "./components/EditModal.jsx";
+import HistoryEditor from "./components/HistoryEditor.jsx";
 
 export default function App() {
   const [state, setState] = useState(loadState);
   const [editingId, setEditingId] = useState(null);
   const [managing, setManaging] = useState(false);
   const [theme, setTheme] = useState(
-    () => document.documentElement.getAttribute('data-theme') || 'dark',
+    () => document.documentElement.getAttribute("data-theme") || "dark",
   );
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
+    document.documentElement.setAttribute("data-theme", theme);
     document
       .querySelector('meta[name="theme-color"]')
-      ?.setAttribute('content', theme === 'light' ? '#eaf0ec' : '#070a09');
+      ?.setAttribute("content", theme === "light" ? "#eaf0ec" : "#070a09");
     try {
-      localStorage.setItem('zo-theme', theme);
+      localStorage.setItem("zo-theme", theme);
     } catch {
       /* хранилище недоступно */
     }
@@ -44,7 +44,7 @@ export default function App() {
   const addTeam = (rawName) => {
     const name = rawName.trim() || nextDefaultName(teams);
     if (teams.some((t) => t.name.toLowerCase() === name.toLowerCase())) {
-      return 'Команда с таким названием уже есть';
+      return "Команда с таким названием уже есть";
     }
     setState((s) => ({ ...s, teams: [...s.teams, { id: uid(), name }] }));
     return null;
@@ -57,7 +57,9 @@ export default function App() {
     const team = teams.find((t) => t.id === id);
     if (
       count > 0 &&
-      !confirm(`У «${team.name}» сыграно матчей: ${count}. Удалить команду вместе с ними?`)
+      !confirm(
+        `У «${team.name}» сыграно матчей: ${count}. Удалить команду вместе с ними?`,
+      )
     ) {
       return;
     }
@@ -99,8 +101,8 @@ export default function App() {
     setState((s) => ({ ...s, matches: s.matches.filter((m) => m.id !== id) }));
 
   const clearAll = () => {
-    if (confirm('Очистить таблицу и все результаты? Команды тоже сбросятся.')) {
-      localStorage.removeItem('zo-tournament-v2');
+    if (confirm("Очистить таблицу и все результаты? Команды тоже сбросятся.")) {
+      localStorage.removeItem("zo-tournament-v2");
       setState(loadState());
     }
   };
@@ -111,24 +113,56 @@ export default function App() {
     <>
       <header className="header">
         <div className="container header__inner">
-          <img className="header__logo" src={`${import.meta.env.BASE_URL}logo.jpg`} alt="ФК Зелёная околица" />
+          <img
+            className="header__logo"
+            src={`${import.meta.env.BASE_URL}logo.jpg`}
+            alt="ФК Зелёная околица"
+          />
           <div>
             <h1 className="header__title">Таблица тренировок</h1>
-            <p className="header__sub">Зелёная околица · итоги дня</p>
+            <p className="header__sub">Итоги дня</p>
           </div>
           <div className="header__actions">
             <button
               type="button"
               className="icon-btn theme-toggle"
-              onClick={() => setTheme((t) => (t === 'light' ? 'dark' : 'light'))}
-              title={theme === 'light' ? 'Тёмная тема' : 'Светлая тема'}
-              aria-label={theme === 'light' ? 'Включить тёмную тему' : 'Включить светлую тему'}
+              onClick={() =>
+                setTheme((t) => (t === "light" ? "dark" : "light"))
+              }
+              title={theme === "light" ? "Тёмная тема" : "Светлая тема"}
+              aria-label={
+                theme === "light"
+                  ? "Включить тёмную тему"
+                  : "Включить светлую тему"
+              }
             >
-              <svg className="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                className="icon-sun"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <circle cx="12" cy="12" r="4" />
                 <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4" />
               </svg>
-              <svg className="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+              <svg
+                className="icon-moon"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
                 <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8Z" />
               </svg>
             </button>
@@ -139,8 +173,18 @@ export default function App() {
               title="Очистить всё"
               aria-label="Очистить всё"
             >
-              <svg width="18" height="18" viewBox="0 0 23 23" aria-hidden="true">
-                <path d="M2 2l19 19M21 2L2 21" stroke="currentColor" strokeWidth="3" strokeLinecap="round" />
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 23 23"
+                aria-hidden="true"
+              >
+                <path
+                  d="M2 2l19 19M21 2L2 21"
+                  stroke="currentColor"
+                  strokeWidth="3"
+                  strokeLinecap="round"
+                />
               </svg>
             </button>
           </div>
