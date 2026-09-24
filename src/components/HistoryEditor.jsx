@@ -2,7 +2,8 @@ import { useEffect, useMemo } from 'react';
 import {
   DndContext,
   KeyboardSensor,
-  PointerSensor,
+  MouseSensor,
+  TouchSensor,
   closestCenter,
   useSensor,
   useSensors,
@@ -75,7 +76,10 @@ export default function HistoryEditor({ matches, teams, paused, onEdit, onReorde
   );
   const ids = useMemo(() => matches.map((m) => m.id), [matches]);
   const sensors = useSensors(
-    useSensor(PointerSensor, { activationConstraint: { distance: 4 } }),
+    useSensor(MouseSensor, { activationConstraint: { distance: 4 } }),
+    // на тач-устройствах PointerSensor перехватывается скроллом модалки,
+    // TouchSensor блокирует прокрутку, пока тянем за ручку
+    useSensor(TouchSensor, { activationConstraint: { distance: 4 } }),
     useSensor(KeyboardSensor, { coordinateGetter: sortableKeyboardCoordinates }),
   );
 
